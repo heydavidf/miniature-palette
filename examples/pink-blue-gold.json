@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "id": "example-pink-blue-gold",
+  "name": "Pink, blue and gold",
+  "source": {
+    "kind": "colours",
+    "title": "A colour composition",
+    "seeds": [
+      "#bf668c",
+      "#2255aa",
+      "#eedc38"
+    ],
+    "crop": {
+      "x": 0,
+      "y": 0,
+      "w": 100,
+      "h": 100
+    }
+  },
+  "palette": [
+    {
+      "id": "c0",
+      "hex": "#bf668c",
+      "locked": false,
+      "origin": "manual",
+      "weight": 50
+    },
+    {
+      "id": "c1",
+      "hex": "#2255aa",
+      "locked": false,
+      "origin": "manual",
+      "weight": 30
+    },
+    {
+      "id": "c2",
+      "hex": "#eedc38",
+      "locked": false,
+      "origin": "manual",
+      "weight": 20
+    }
+  ],
+  "original": [
+    {
+      "id": "c0",
+      "hex": "#bf668c",
+      "locked": false,
+      "origin": "manual",
+      "weight": 50
+    },
+    {
+      "id": "c1",
+      "hex": "#2255aa",
+      "locked": false,
+      "origin": "manual",
+      "weight": 30
+    },
+    {
+      "id": "c2",
+      "hex": "#eedc38",
+      "locked": false,
+      "origin": "manual",
+      "weight": 20
+    }
+  ],
+  "candidates": [],
+  "tuning": {
+    "harmony": "Free",
+    "saturation": 0,
+    "warmth": 0,
+    "contrast": 0
+  },
+  "locked": false,
+  "sequences": {},
+  "matches": {},
+  "updated": 1790632800000
+}

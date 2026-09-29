@@ -1,0 +1,39 @@
+{
+  "The Army Painter": {
+    "source": "https://thearmypainter.com/collections/metallic-paints/products.json?limit=250",
+    "names": [
+      "Gun Metal",
+      "Mithril",
+      "Greedy Gold",
+      "True Brass",
+      "Shining Silver",
+      "Cobalt Metal",
+      "Evil Chrome",
+      "Bright Gold",
+      "Death Metal",
+      "Plate Mail Metal",
+      "Gemstone Red",
+      "Tainted Gold",
+      "Rough Iron",
+      "True Copper",
+      "Weapon Bronze",
+      "Glittering Green",
+      "Dark Emerald",
+      "Red Copper"
+    ]
+  },
+  "Citadel": {
+    "source": "https://trade.games-workshop.com/assets/2022/06/P360%20Paint%20Planogram%202022.pdf",
+    "names": [
+      "Canoptek Alloy",
+      "Ironbreaker",
+      "Leadbelcher",
+      "Iron Warriors",
+      "Retributor Armour",
+      "Runelord Brass",
+      "Balthasar Gold",
+      "Screaming Bell",
+      "Warplock Bronze"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+export type Origin = 'sampled' | 'generated' | 'manual';
+export type Swatch = {id:string;hex:string;locked:boolean;origin:Origin;weight:number};
+export type Candidate = {hex:string;count:number};
+export type Tuning = {harmony:string;saturation:number;warmth:number;contrast:number};
+export type Tone = {hex:string;origin:Origin;manual:boolean;coreId?:string};
+export type Sequence = {coreId:string;anchor:0|1|2;tones:[Tone,Tone,Tone];spread:number;review:boolean};
+export type Source = {kind:'image'|'colours';seeds?:string[];src?:string;title:string;artist?:string;url?:string;license?:string;crop:{x:number;y:number;w:number;h:number}};
+export type Scheme = {version:1;id:string;name:string;source:Source;palette:Swatch[];original:Swatch[];candidates:Candidate[];tuning:Tuning;locked:boolean;sequences:Record<string,Sequence>;matches:Record<string,string>;updated:number};
+export type Paint = {id:string;name:string;brand:string;range:string;code:string;hex:string;source:string};
+export const neutralTuning:Tuning={harmony:'Free',saturation:0,warmth:0,contrast:0};
