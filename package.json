@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "preview": "vite preview --host 127.0.0.1 --port 5178 --strictPort",
-    "test:browser": "node scripts/check-browser.mjs && node scripts/check-edge-cases.mjs && node scripts/check-regressions.mjs && node scripts/check-final-ui.mjs && node scripts/check-colour-adjustment.mjs && node scripts/check-extended-paints.mjs"
+    "test:browser": "node scripts/check-browser.mjs && node scripts/check-edge-cases.mjs && node scripts/check-regressions.mjs && node scripts/check-final-ui.mjs && node scripts/check-colour-adjustment.mjs && node scripts/check-extended-paints.mjs && node scripts/check-restore-race.mjs"
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.0",
