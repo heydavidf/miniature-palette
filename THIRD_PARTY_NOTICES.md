@@ -10,20 +10,45 @@ The 945 bundled records are a filtered selection from [Miniature Painter Pro](ht
 
 Six public-domain artworks come from [The Metropolitan Museum of Art Open Access](https://www.metmuseum.org/hubs/open-access), which provides eligible images under CC0. Adjacent `public/images/*.jpg.json` files identify each artwork, artist and image source; `src/art.json` contains the app credits. Retain their provenance when redistributing the collection.
 
-## Runtime libraries and font
+## Fonts
 
-Full copyright and licence notices are bundled in [public/THIRD-PARTY-LICENSES.txt](public/THIRD-PARTY-LICENSES.txt), which Vite includes in production output:
+The interface and card use Instrument Sans and IBM Plex Mono, bundled unmodified with their complete SIL Open Font License notices in [public/fonts](public/fonts/). Instrument Sans: copyright 2022 The Instrument Sans Project Authors. IBM Plex Mono: copyright 2017 IBM Corp., reserved font name Plex. The unused DM Sans npm dependency remains separately licensed under OFL-1.1.
+
+## Runtime dependencies
+
+Complete copyright/licence notices are bundled in [public/THIRD-PARTY-LICENSES.txt](public/THIRD-PARTY-LICENSES.txt) and included in the production output. The locked production tree, including optional dependencies, is:
 
 | Package | Version | Licence |
 |---|---|---|
+| @babel/runtime | 7.29.7 | MIT |
 | @fontsource/dm-sans | 5.3.0 | OFL-1.1 |
+| @types/pako | 2.0.4 | MIT |
+| @types/raf | 3.4.3 | MIT |
+| @types/trusted-types | 2.0.7 | MIT |
+| base64-arraybuffer | 1.0.2 | MIT |
+| canvg | 3.0.11 | MIT |
+| core-js | 3.50.0 | MIT |
+| css-line-break | 2.1.0 | MIT |
 | culori | 4.0.2 | MIT |
+| dompurify | 3.4.16 | (MPL-2.0 OR Apache-2.0) |
+| fast-png | 6.4.0 | MIT |
+| fflate | 0.8.3 | MIT |
+| html2canvas | 1.4.1 | MIT |
 | idb-keyval | 6.3.0 | Apache-2.0 |
+| iobuffer | 5.4.0 | MIT |
+| jspdf | 4.2.1 | MIT |
 | lucide-react | 0.468.0 | ISC |
+| pako | 2.2.0 | (MIT AND Zlib) |
+| performance-now | 2.1.0 | MIT |
+| raf | 3.4.1 | MIT |
 | react | 19.3.0 | MIT |
 | react-dom | 19.3.0 | MIT |
+| regenerator-runtime | 0.13.11 | MIT |
+| rgbcolor | 1.0.1 | MIT OR SEE LICENSE IN FEEL-FREE.md |
 | scheduler | 0.28.0 | MIT |
+| stackblur-canvas | 2.7.0 | MIT |
+| svg-pathdata | 6.0.3 | MIT |
+| text-segmentation | 1.0.3 | MIT |
+| utrie | 1.0.2 | MIT |
 
-Lucide also retains attribution for its Feather-derived portions. DM Sans remains under OFL-1.1. The complete Apache-2.0 text accompanies idb-keyval’s notice.
-
-Development tools have their own licences in their installed packages. Dependencies are installed through npm and pinned in `package-lock.json`; `node_modules` is not distributed here. Review and refresh bundled notices whenever runtime dependencies change.
+DOMPurify's dual licence texts are retained; idb-keyval's complete Apache-2.0 notice, Lucide's Feather attribution and pako's MIT/Zlib notices are preserved. Dependency code is installed by npm rather than committed as node_modules. Development tools retain their installed package notices. Review this file and the bundled texts whenever dependencies change.

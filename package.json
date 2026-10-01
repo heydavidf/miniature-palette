@@ -1,19 +1,21 @@
 {
   "name": "miniature-palette",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5178 --strictPort",
     "build": "tsc -b && vite build",
     "test": "vitest run",
     "preview": "vite preview --host 127.0.0.1 --port 5178 --strictPort",
-    "test:browser": "node scripts/check-browser.mjs && node scripts/check-edge-cases.mjs && node scripts/check-regressions.mjs && node scripts/check-final-ui.mjs && node scripts/check-colour-adjustment.mjs && node scripts/check-extended-paints.mjs && node scripts/check-restore-race.mjs"
+    "test:browser": "node scripts/check-browser.mjs && node scripts/check-edge-cases.mjs && node scripts/check-regressions.mjs && node scripts/check-final-ui.mjs && node scripts/check-colour-adjustment.mjs && node scripts/check-extended-paints.mjs && node scripts/check-restore-race.mjs && node scripts/check-pigment-workspace.mjs && node scripts/check-panorama-card.mjs && node scripts/check-paint-progression.mjs && node scripts/check-compact-final.mjs && node scripts/check-card-overflow.mjs",
+    "test:print": "python3 scripts/check-compact-final-pdf.py && python3 scripts/check-print-output.py"
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.0",
     "culori": "^4.0.2",
     "idb-keyval": "^6.2.2",
+    "jspdf": "^4.2.1",
     "lucide-react": "^0.468.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

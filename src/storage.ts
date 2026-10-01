@@ -26,6 +26,8 @@ export function validateScheme(value:unknown):value is Scheme {
  if(source.seeds!==undefined&&(!Array.isArray(source.seeds)||source.seeds.length<1||source.seeds.length>3||!source.seeds.every(hex)))return false;
  const crop=source.crop;
  if(!record(crop)||!['x','y','w','h'].every(k=>finite(crop[k])&&crop[k]>=0&&crop[k]<=100)||crop.w<=0||crop.h<=0||crop.x+crop.w>100||crop.y+crop.h>100)return false;
+ const framing=source.framing;
+ if(framing!==undefined&&(!record(framing)||source.kind!=='image'||!['x','y'].every(k=>finite(framing[k])&&framing[k]>=0&&framing[k]<=1)||!finite(framing.aspect)||framing.aspect<1||framing.aspect>8))return false;
  const tuning=s.tuning;
  if(!record(tuning)||!['Free','Analogous','Complementary','Split complementary','Triadic'].includes(tuning.harmony)||!['saturation','warmth','contrast'].every(k=>finite(tuning[k])&&Math.abs(tuning[k])<=100))return false;
  if(!record(s.sequences)||!record(s.matches))return false;

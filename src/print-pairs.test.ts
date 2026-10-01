@@ -1,0 +1,12 @@
+import {it,expect} from 'vitest';
+import {cardCells} from './card-layout';
+import {printChoices} from './print-pairs';
+import {makeSequence,generatePalette} from './colour';
+import {neutralTuning} from './types';
+import type {Scheme,Paint} from './types';
+const palette=generatePalette(['#336699'],3,neutralTuning);
+const base:Scheme={version:1,id:'print-choice-test',name:'Print choices',source:{kind:'colours',title:'Test colours',crop:{x:0,y:0,w:100,h:100}},palette,original:structuredClone(palette),candidates:[],tuning:{...neutralTuning},locked:true,sequences:{c0:makeSequence(palette[0])},matches:{},updated:1};
+const a={id:'a',name:'A paint',brand:'Brand',range:'Range',code:'1'} as Paint;
+it('shows an unselected anchor alongside a selected independent core',()=>{const s={...base,matches:{c0:'a'}};expect(printChoices(s,cardCells(s)[0],[a]).map(p=>({label:p.label,id:p.paintId}))).toEqual([{label:'Core',id:'a'},{label:'Midtone',id:undefined}]);});
+it('merges a shared core and anchor bottle but preserves two distinct ones',()=>{let s={...base,matches:{c0:'a','c0:1':'a'}};expect(printChoices(s,cardCells(s)[0],[a])).toHaveLength(1);expect(printChoices(s,cardCells(s)[0],[a])[0].label).toBe('Core + Midtone');s={...base,matches:{c0:'a','c0:1':'b'}};expect(printChoices(s,cardCells(s)[0],[a])).toHaveLength(2);});
+it('retains unavailable catalogue ids and the exact companion-role association',()=>{const s={...base,matches:{'c0:0':'missing'}};const cell=cardCells(s).find(p=>p.ref==='01S')!;expect(printChoices(s,cell,[a])).toEqual([{label:'Shadow',paintId:'missing',paint:undefined}]);});

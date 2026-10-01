@@ -1,12 +1,10 @@
-import {mkdirSync} from 'node:fs';
-mkdirSync(new URL('../.impeccable/review/',import.meta.url),{recursive:true});
 // Run with the local app started. Uses a disposable context, never the user's saved schemes.
 import {chromium,expect} from '@playwright/test';
 const browser=await chromium.launch({headless:true});
 const context=await browser.newContext();const page=await context.newPage();
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 try {
- await page.goto(process.env.PALETTE_TEST_URL||'http://127.0.0.1:5178');
+ await page.goto((process.env.PALETTE_TEST_URL||'http://127.0.0.1:5178'));
  await page.waitForFunction(()=>document.querySelectorAll('.big-swatch').length===5);
  const file=page.locator('input[type=file]').first();
  await file.setInputFiles('public/images/art-436535.jpg');
@@ -26,12 +24,12 @@ try {
  await page.getByRole('button',{name:'Develop this colour'}).first().click();
  await page.locator('.tone-match').nth(2).click();
  await page.getByRole('button',{name:'Choose this paint'}).first().click();
- await page.getByRole('button',{name:'Remove sequence',exact:true}).first().click();
+ await page.locator('.tone-match').nth(2).click();await page.getByRole('button',{name:'Remove sequence',exact:true}).first().click();
  await expect(page.locator('.paint-section')).toHaveCount(0);
  await page.getByRole('button',{name:'Develop this colour'}).first().click();
  await page.locator('.tone-match').nth(2).click();
  await expect(page.getByRole('button',{name:'Selected',exact:true})).toHaveCount(0);
- await page.locator('.paint-targets button').first().click();
+ await page.locator('.paint-palette-picker').evaluate(el=>el.open=true);await page.locator('.paint-targets button').first().click();
  await expect(page.getByRole('button',{name:'Selected',exact:true})).toHaveCount(1);
  await page.locator('.tone-chip').nth(0).click();
  await page.locator('.tone-choices button').nth(1).click();
@@ -43,7 +41,7 @@ try {
  await expect(page.locator('.spread-label input').first()).toBeEnabled();
  await page.getByRole('button',{name:'Done',exact:true}).click();
  await page.getByRole('button',{name:'Edit palette',exact:true}).click();
- await page.locator('.paint-targets button').last().click();
+ await page.locator('.paint-palette-picker').evaluate(el=>el.open=true);await page.locator('.paint-targets button').last().click();
  await page.getByLabel('Number of colours').selectOption('3');
  await expect(page.locator('.paint-section')).toHaveCount(0);
  if(errors.length)throw Error(errors.join('\n'));

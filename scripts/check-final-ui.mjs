@@ -1,13 +1,12 @@
-import {mkdirSync} from 'node:fs';
-mkdirSync(new URL('../.impeccable/review/',import.meta.url),{recursive:true});
 import {chromium,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import fs from 'node:fs/promises';
+await fs.mkdir('.test-output/browser',{recursive:true});
 const browser=await chromium.launch({headless:true});
 try {
  const context=await browser.newContext({viewport:{width:1440,height:1080}});
  const page=await context.newPage();
- await page.goto(process.env.PALETTE_TEST_URL||'http://127.0.0.1:5178');
+ await page.goto((process.env.PALETTE_TEST_URL||'http://127.0.0.1:5178'));
  await expect(page.locator('.big-swatch')).toHaveCount(5);
  await page.getByRole('button',{name:'Lock palette',exact:true}).click();
  await page.getByRole('button',{name:'Develop this colour'}).first().click();
@@ -23,7 +22,7 @@ try {
  for (const [name,width,height] of [['desktop',1440,1080],['tablet',820,1180],['mobile',390,844]]) {
   await page.setViewportSize({width,height});
   await page.locator('.tone-editor').scrollIntoViewIfNeeded();
-  await page.screenshot({path:`.impeccable/review/final-${name}-tones.png`,fullPage:true});
+  await page.screenshot({path:`.test-output/browser/final-${name}-tones.png`,fullPage:true});
   const violations=(await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations;
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);
   results[name]={violations,overflow};
@@ -44,6 +43,6 @@ try {
  await page.emulateMedia({reducedMotion:'reduce'});
  results.reducedMotion=await page.locator('.tone-editor').evaluate(el=>getComputedStyle(el).animationName);
  expect(results.reducedMotion).toBe('none');
- await fs.writeFile('.impeccable/review/final-ui.json',JSON.stringify(results,null,2));
+ await fs.writeFile('.test-output/browser/final-ui.json',JSON.stringify(results,null,2));
  console.log('Final desktop/tablet/mobile tone controls, axe, keyboard recovery and reduced motion passed.');
 } finally {await browser.close();}

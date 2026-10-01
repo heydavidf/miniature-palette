@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {generatePalette,makeSequence,selectPalette,syncSequences} from './colour';
-import {targetColour,withoutSequence,copySchemeName} from './scheme-state';
+import {targetColour,withoutSequence,copySchemeName,paintTargetKeys} from './scheme-state';
 import {validateScheme} from './storage';
 import {neutralTuning} from './types';
 import type {Scheme} from './types';
@@ -23,3 +23,9 @@ describe('backup validation',()=>{
 });
 
 it('copied 80-character names remain valid through repeated backup round trips',()=>{const s=fixture();s.name='A'.repeat(80);for(let i=0;i<6;i++){s.name=copySchemeName(s.name);expect(s.name.length).toBeLessThanOrEqual(80);expect(validateScheme(JSON.parse(JSON.stringify(s)))).toBe(true);}});
+
+describe('paint target progression',()=>{
+ it('visits cores and all shades including their independently assigned anchor',()=>{expect(paintTargetKeys(fixture())).toEqual(['c0','c0:0','c0:1','c0:2','c1','c1:0','c1:1','c1:2','c2','c3','c4']);});
+ it('follows reordered stable colours and omits removed sequences',()=>{const s=withoutSequence(fixture(),'c0');s.palette=[s.palette[2],s.palette[1],s.palette[0]];expect(paintTargetKeys(s)).toEqual(['c2','c1','c1:0','c1:1','c1:2','c0']);});
+ it('excludes stale sequences and has no next target at the end',()=>{const s=fixture();s.palette=s.palette.slice(2);const keys=paintTargetKeys(s);expect(keys).toEqual(['c2','c3','c4']);expect(keys[keys.length]).toBeUndefined();});
+});

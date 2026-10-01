@@ -1,13 +1,12 @@
-import {mkdirSync} from 'node:fs';
-mkdirSync(new URL('../.impeccable/review/',import.meta.url),{recursive:true});
 import {chromium,expect} from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import fs from 'node:fs/promises';
+await fs.mkdir('.test-output/browser',{recursive:true});
 const browser=await chromium.launch({headless:true});
 try{
  const context=await browser.newContext({viewport:{width:1440,height:1080}}),page=await context.newPage();
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(process.env.PALETTE_TEST_URL||'http://127.0.0.1:5178');await expect(page.locator('.big-swatch')).toHaveCount(5);
+ await page.goto((process.env.PALETTE_TEST_URL||'http://127.0.0.1:5178'));await expect(page.locator('.big-swatch')).toHaveCount(5);
  const colours=()=>page.locator('.swatch-caption small').allTextContents();const before=await colours();
  await page.getByRole('button',{name:'Adjust colour',exact:true}).click();
  await page.getByLabel('Hex colour',{exact:true}).fill('#bf668c');
@@ -20,7 +19,7 @@ try{
  await page.getByLabel('Selected colour hue').fill('25');expect(await colours()).toEqual(pink);
  for(const [name,width,height] of [['desktop',1440,1080],['mobile',390,844]]){
   await page.setViewportSize({width,height});await page.locator('.colour-adjust-panel').scrollIntoViewIfNeeded();
-  await page.screenshot({path:`.impeccable/review/adjust-${name}.png`,fullPage:true});
+  await page.screenshot({path:`.test-output/browser/adjust-${name}.png`,fullPage:true});
   expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()).violations).toEqual([]);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
  }

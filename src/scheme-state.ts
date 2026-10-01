@@ -16,3 +16,8 @@ export function withoutSequence(scheme:Scheme,id:string):Scheme {
 }
 
 export function copySchemeName(name:string):string { return `${name.slice(0,75).trimEnd()||'Untitled'} copy`; }
+
+/** Visit each core, then its three independently assigned shades, in palette order. */
+export function paintTargetKeys(scheme:Scheme):string[]{
+ return scheme.palette.flatMap(p=>[p.id,...(scheme.sequences[p.id]?[0,1,2].map(i=>`${p.id}:${i}`):[])]);
+}
